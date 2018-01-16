@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.juandavid.sunshine"
-        minSdkVersion 10
+        minSdkVersion 11
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -17,7 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildTypes.each {
+              it.buildConfigField 'String', 'OPEN_WEATHER_MAP_API_KEY', "\"8deced1a95861d5b974a5cbd1d6227d4\""
+          }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
