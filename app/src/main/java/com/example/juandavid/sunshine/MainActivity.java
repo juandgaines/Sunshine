@@ -12,14 +12,15 @@ public class MainActivity extends ActionBarActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
-    private boolean mTwoPane;
 
+    private boolean mTwoPane;
     private String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mLocation = Utility.getPreferredLocation(this);
         super.onCreate(savedInstanceState);
+        mLocation = Utility.getPreferredLocation(this);
+
         setContentView(R.layout.activity_main);
         if (findViewById(R.id.weather_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
@@ -31,14 +32,16 @@ public class MainActivity extends ActionBarActivity {
             // fragment transaction.
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.weather_detail_container, new FragmentActivity(), DETAILFRAGMENT_TAG)
-                        .commit();
+                            .add(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                            .commit();
+
+                /*getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .commit();*/
             }
         } else {
             mTwoPane = false;
         }
-
-
     }
 
     @Override
@@ -94,7 +97,7 @@ public class MainActivity extends ActionBarActivity {
         String location = Utility.getPreferredLocation( this );
         // update the location in our second pane using the fragment manager
         if (location != null && !location.equals(mLocation)) {
-            DetailFragment ff = (DetailFragment)getSupportFragmentManager().findFragmentByTag(DETAILFRAGMENT_TAG);
+            ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if ( null != ff ) {
                 ff.onLocationChanged();
             }

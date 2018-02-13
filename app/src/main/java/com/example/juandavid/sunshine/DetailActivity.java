@@ -23,60 +23,24 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.juandavid.sunshine.data.WeatherContract;
-
 public class DetailActivity extends ActionBarActivity {
-
-    private static final String[] FORECAST_COLUMNS = {
-            // In this case the id needs to be fully qualified with a table name, since
-            // the content provider joins the location & weather tables in the background
-            // (both have an _id column)
-            // On the one hand, that's annoying.  On the other, you can search the weather table
-            // using the location set by the user, which is only in the Location table.
-            // So the convenience is worth it.
-            WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry._ID,
-            WeatherContract.WeatherEntry.COLUMN_DATE,
-            WeatherContract.WeatherEntry.COLUMN_SHORT_DESC,
-            WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
-            WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,
-            WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING,
-            WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
-            WeatherContract.LocationEntry.COLUMN_COORD_LAT,
-            WeatherContract.LocationEntry.COLUMN_COORD_LONG
-    };
-
-    static final int COL_WEATHER_ID = 0;
-    static final int COL_WEATHER_DATE = 1;
-    static final int COL_WEATHER_DESC = 2;
-    static final int COL_WEATHER_MAX_TEMP = 3;
-    static final int COL_WEATHER_MIN_TEMP = 4;
-    static final int COL_LOCATION_SETTING = 5;
-    static final int COL_WEATHER_CONDITION_ID = 6;
-    static final int COL_COORD_LAT = 7;
-    static final int COL_COORD_LONG = 8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.weather_detail_container, new FragmentActivity())
+                    .add(R.id.weather_detail_container, new DetailFragment())
                     .commit();
         }
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.detail, menu);
-
-
-
-
         return true;
     }
 
@@ -86,19 +50,10 @@ public class DetailActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent startIntentSettings = new Intent(this, SettingsActivity.class);
-            startActivity(startIntentSettings);
+            startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-
 }

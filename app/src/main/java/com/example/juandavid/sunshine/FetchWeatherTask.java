@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 package com.example.juandavid.sunshine;
-import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.text.format.Time;
 import android.util.Log;
 
@@ -109,7 +107,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
-    @TargetApi(Build.VERSION_CODES.CUPCAKE)
     private void getWeatherDataFromJson(String forecastJsonStr,
                                         String locationSetting)
             throws JSONException {
@@ -197,7 +194,6 @@ public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
                 JSONObject dayForecast = weatherArray.getJSONObject(i);
 
                 // Cheating to convert this to UTC time, which is what we want anyhow
-
                 dateTime = dayTime.setJulianDay(julianStartDay+i);
 
                 pressure = dayForecast.getDouble(OWM_PRESSURE);

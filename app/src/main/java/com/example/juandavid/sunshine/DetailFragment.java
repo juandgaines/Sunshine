@@ -67,6 +67,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING
     };
 
+
     // These indices are tied to DETAIL_COLUMNS.  If DETAIL_COLUMNS changes, these
     // must change.
     public static final int COL_WEATHER_ID = 0;

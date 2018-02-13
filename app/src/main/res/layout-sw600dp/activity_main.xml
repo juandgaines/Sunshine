@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/fragment_forecast"
-        android:name="com.example.juandavid.sunshine.DetailFragment"
+        android:name="com.example.juandavid.sunshine.ForecastFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="2"
