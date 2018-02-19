@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
@@ -34,10 +34,6 @@ public class MainActivity extends ActionBarActivity {
                 getSupportFragmentManager().beginTransaction()
                             .add(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
                             .commit();
-
-                /*getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.weather_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
-                        .commit();*/
             }
         } else {
             mTwoPane = false;
@@ -102,6 +98,26 @@ public class MainActivity extends ActionBarActivity {
                 ff.onLocationChanged();
             }
             mLocation = location;
+        }
+    }
+
+    @Override
+    public void onItemSelected(Uri dateUri) {
+        if (mTwoPane){
+            Bundle args= new Bundle();
+            args.putParcelable(DetailFragment.DETAIL_URI,dateUri);
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.weather_detail_container,fragment,DETAILFRAGMENT_TAG)
+                    .commit();
+
+        }
+        else{
+            Intent intent = new Intent(this, DetailActivity.class)
+                            .setData(dateUri);
+                    startActivity(intent);
         }
     }
 }
